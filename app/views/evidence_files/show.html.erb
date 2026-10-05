@@ -1,0 +1,18 @@
+<% content_for :title, @evidence_file.original_filename %>
+
+<h1><%= @evidence_file.original_filename %></h1>
+<p>Case: <%= link_to @case.name, @case %></p>
+
+<table class="table evidence-details">
+  <tbody>
+    <tr><th>Original filename</th><td><%= @evidence_file.original_filename %></td></tr>
+    <tr><th>SHA256</th><td class="mono" id="sha256"><%= @evidence_file.sha256 %></td></tr>
+    <tr><th>Size</th><td><%= number_with_delimiter(@evidence_file.original.byte_size) %> bytes</td></tr>
+    <tr><th>Content type</th><td><%= @evidence_file.original.content_type %></td></tr>
+    <tr><th>Detected format</th><td><%= @evidence_file.detected_format || "not yet detected" %></td></tr>
+    <tr><th>Status</th><td><%= @evidence_file.status %></td></tr>
+    <tr><th>Uploaded (UTC)</th><td><%= @evidence_file.uploaded_at.utc.iso8601 %></td></tr>
+  </tbody>
+</table>
+
+<p><%= link_to "Download original", rails_blob_path(@evidence_file.original, disposition: "attachment"), class: "button secondary" %></p>

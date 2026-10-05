@@ -1,0 +1,6 @@
+riverside:
+  name: Riverside burglary series
+  description: Synthetic case used by tests.
+
+empty:
+  name: Empty case

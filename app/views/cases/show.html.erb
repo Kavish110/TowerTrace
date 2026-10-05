@@ -1,0 +1,22 @@
+<% content_for :title, @case.name %>
+
+<header class="page-header">
+  <h1><%= @case.name %></h1>
+  <div class="actions">
+    <%= link_to "Edit", edit_case_path(@case), class: "button secondary" %>
+    <%= button_to "Delete", @case, method: :delete, class: "button danger",
+          form: { data: { turbo_confirm: "Delete this case?" } } %>
+  </div>
+</header>
+
+<% if @case.description.present? %>
+  <div class="description"><%= simple_format(@case.description) %></div>
+<% end %>
+
+<section>
+  <h2>Evidence</h2>
+  <%= render "evidence_files/upload_form", kase: @case %>
+  <%= render "evidence_files/table", evidence_files: @case.evidence_files.with_attached_original.recent_first %>
+</section>
+
+<p><%= link_to "All cases", cases_path %></p>

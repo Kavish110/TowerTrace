@@ -1,0 +1,18 @@
+test:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+# S3-compatible object store (MinIO). Evidence originals live here.
+# The dev credentials match .env.example; production must set its own.
+minio:
+  service: S3
+  endpoint: <%= ENV.fetch("S3_ENDPOINT", "http://localhost:9000") %>
+  access_key_id: <%= ENV.fetch("S3_ACCESS_KEY_ID", ("towertrace" unless Rails.env.production?)) %>
+  secret_access_key: <%= ENV.fetch("S3_SECRET_ACCESS_KEY", ("towertrace-dev-secret" unless Rails.env.production?)) %>
+  region: <%= ENV.fetch("S3_REGION", "us-east-1") %>
+  bucket: <%= ENV.fetch("S3_BUCKET", "towertrace-evidence") %>
+  force_path_style: true

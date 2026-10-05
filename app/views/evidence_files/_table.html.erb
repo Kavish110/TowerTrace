@@ -1,0 +1,20 @@
+<% if evidence_files.any? %>
+  <table class="table" id="evidence_files">
+    <thead>
+      <tr><th>File</th><th>SHA256</th><th>Size</th><th>Status</th><th>Uploaded (UTC)</th></tr>
+    </thead>
+    <tbody>
+      <% evidence_files.each do |evidence_file| %>
+        <tr id="<%= dom_id(evidence_file) %>">
+          <td><%= link_to evidence_file.original_filename, case_evidence_file_path(evidence_file.case_id, evidence_file) %></td>
+          <td class="mono"><%= evidence_file.sha256 %></td>
+          <td><%= number_to_human_size(evidence_file.original.byte_size) %></td>
+          <td><%= evidence_file.status %></td>
+          <td><%= evidence_file.uploaded_at.utc.iso8601 %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="empty">No evidence uploaded yet.</p>
+<% end %>

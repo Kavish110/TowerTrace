@@ -1,0 +1,8 @@
+<%= form_with url: case_evidence_files_path(kase), scope: :evidence, class: "form upload-form" do |form| %>
+  <div class="field">
+    <%= form.label :files, "Carrier export files" %>
+    <%= form.file_field :files, multiple: true, required: true %>
+    <p class="hint">Originals are stored untouched and hashed with SHA256 on upload.</p>
+  </div>
+  <%= form.submit "Upload", class: "button" %>
+<% end %>

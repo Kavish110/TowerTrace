@@ -1,0 +1,5 @@
+<% content_for :title, "Edit #{@case.name}" %>
+
+<h1>Edit case</h1>
+<%= render "form", kase: @case %>
+<p><%= link_to "Back to case", @case %></p>

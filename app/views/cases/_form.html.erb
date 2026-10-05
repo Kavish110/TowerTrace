@@ -1,0 +1,24 @@
+<%= form_with(model: kase, class: "form") do |form| %>
+  <% if kase.errors.any? %>
+    <div class="errors" role="alert">
+      <h2><%= pluralize(kase.errors.count, "error") %> prevented this case from being saved:</h2>
+      <ul>
+        <% kase.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true, maxlength: 200 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 4 %>
+  </div>
+
+  <%= form.submit class: "button" %>
+<% end %>

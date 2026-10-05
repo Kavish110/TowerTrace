@@ -1,0 +1,82 @@
+/* TowerTrace base styles. Plain CSS, no framework. */
+
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --text: #1d1d1b;
+  --muted: #66665f;
+  --border: #dcdcd6;
+  --accent: #1f5f8b;
+  --danger: #a23a2a;
+  --ok-bg: #e6f2ea;
+  --alert-bg: #f8e7e3;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+a { color: var(--accent); }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--text);
+}
+.topbar .brand { color: #fff; font-weight: 700; text-decoration: none; }
+.topbar .tag { color: #c9c9c2; font-size: 0.8rem; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.actions { display: flex; gap: 0.5rem; }
+
+.flash { padding: 0.6rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
+.flash-notice { background: var(--ok-bg); }
+.flash-alert { background: var(--alert-bg); }
+
+.button, input[type="submit"].button, button.button {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button.secondary { background: var(--surface); color: var(--accent); }
+.button.danger { background: var(--surface); color: var(--danger); border-color: var(--danger); }
+
+.table { width: 100%; border-collapse: collapse; background: var(--surface); }
+.table th, .table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.table th { font-size: 0.85rem; color: var(--muted); }
+.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.85rem; word-break: break-all; }
+
+.form { display: grid; gap: 1rem; max-width: 640px; }
+.field { display: grid; gap: 0.25rem; }
+.field input[type="text"], .field textarea {
+  padding: 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font: inherit;
+}
+.errors { padding: 0.75rem 1rem; background: var(--alert-bg); border-radius: 4px; }
+.errors h2 { font-size: 1rem; margin: 0 0 0.25rem; }
+
+.empty, .hint { color: var(--muted); }

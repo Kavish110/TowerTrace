@@ -1,0 +1,45 @@
+# Connection settings come from the environment so the same file works natively
+# (against the Compose postgres on localhost), inside Compose, and in CI.
+# Development and test fall back to the local Compose credentials from
+# .env.example. Production has no fallbacks and must be configured explicitly.
+# A DATABASE_URL, if set, is merged over these values by Rails.
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+local: &local
+  <<: *default
+  host: <%= ENV.fetch("POSTGRES_HOST", "localhost") %>
+  port: <%= ENV.fetch("POSTGRES_PORT", "5432") %>
+  username: <%= ENV.fetch("POSTGRES_USER", "towertrace") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "towertrace") %>
+
+development:
+  <<: *local
+  database: towertrace_development
+
+test:
+  <<: *local
+  database: towertrace_test
+
+production:
+  primary: &primary_production
+    <<: *default
+    host: <%= ENV["POSTGRES_HOST"] %>
+    port: <%= ENV.fetch("POSTGRES_PORT", "5432") %>
+    database: <%= ENV.fetch("POSTGRES_DB", "towertrace_production") %>
+    username: <%= ENV["POSTGRES_USER"] %>
+    password: <%= ENV["POSTGRES_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: towertrace_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: towertrace_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: towertrace_production_cable
+    migrations_paths: db/cable_migrate
